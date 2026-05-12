@@ -1,4 +1,3 @@
-import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.tsx'
@@ -10,21 +9,25 @@ import NavBar from './components/Navigation.tsx'
 import NotFoundComponent from './components/NotFound.tsx'
 import Login from './components/Login.tsx'
 import PrivateRoutes from './components/PrivateRoutes.tsx'
+import React from "react";
+import {LoginProvider} from "./context/LoginContext.tsx";
 
 createRoot(document.getElementById('root')!).render(
-    <BrowserRouter>
-        <NavBar />
-        <Routes>
-            <Route path="/login" element={<Login />}/>
-            <Route element={<PrivateRoutes/>}>
-                <Route path="/" element={<App />} />
-                <Route path="/about" element={<AboutComponent />} />
-                <Route path="/contact" element={<ContactComponent />} />
-                <Route path="/users/:id" element={<UserComponent />} />
-            </Route>
+    <LoginProvider>
+        <BrowserRouter>
+            <NavBar />
+            <Routes>
+                <Route path="/login" element={<Login />}/>
+                <Route element={<PrivateRoutes/>}>
+                    <Route path="/" element={<App />} />
+                    <Route path="/about" element={<AboutComponent />} />
+                    <Route path="/contact" element={<ContactComponent />} />
+                    <Route path="/users/:id" element={<UserComponent />} />
+                </Route>
 
-            {/*404 HAS TO BE LAST!!!*/}
-            <Route path="*" element={<NotFoundComponent />} />
-        </Routes>
-    </BrowserRouter>,
+                {/*404 HAS TO BE LAST!!!*/}
+                <Route path="*" element={<NotFoundComponent />} />
+            </Routes>
+        </BrowserRouter>
+    </LoginProvider>
 )
